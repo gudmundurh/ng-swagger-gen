@@ -947,6 +947,16 @@ function toIdentifier(string) {
 }
 
 /**
+ * Convert a string to camelCase
+ */
+function toCamelCase(string) {
+  if (!string)
+    return string;
+
+  return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
+/**
  * Normalizes the tag name. Actually, capitalizes the given name.
  * If the given tag is null, returns the default from options
  */
@@ -1151,7 +1161,7 @@ function processServices(swagger, models, options) {
         docString += '\n@return ' + operationResponses.resultDescription;
       }
       function getOperationName(string) {
-        if (options.camelCase) return string.charAt(0).toLowerCase() + string.slice(1);
+        if (options.camelCase) return toCamelCase(string);
         else return string;
       }
       var operation = {
