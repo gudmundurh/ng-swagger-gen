@@ -1036,12 +1036,15 @@ function processServices(swagger, models, options) {
       var tags = def.tags || [];
       var tag = tagName(tags.length == 0 ? null : tags[0], options);
       var descriptor = services[tag];
+      var serviceClassSuffix = options.serviceSuffix || 'Service';
+      var serviceFileSuffix = '.' + toCamelCase(serviceClassSuffix);
+
       if (descriptor == null) {
         var serviceClass = toClassName(tag);
         descriptor = {
           serviceName: tag,
-          serviceClass: serviceClass + 'Service',
-          serviceFile: toFileName(serviceClass) + '.service',
+          serviceClass: serviceClass + serviceClassSuffix,
+          serviceFile: toFileName(serviceClass) + serviceFileSuffix,
           operationIds: new Set(),
           serviceOperations: [],
         };
